@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Damian Ignaczak | Python Developer</title>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <pre>
+
+                    ___           ___                       ___           ___     
+     _____         /\  \         /\  \                     /\  \         /\  \    
+    /::\  \       /::\  \       |::\  \       ___         /::\  \        \:\  \   
+   /:/\:\  \     /:/\:\  \      |:|:\  \     /\__\       /:/\:\  \        \:\  \  
+  /:/  \:\__\   /:/ /::\  \   __|:|\:\  \   /:/__/      /:/ /::\  \   _____\:\  \ 
+ /:/__/ \:|__| /:/_/:/\:\__\ /::::|_\:\__\ /::\  \     /:/_/:/\:\__\ /::::::::\__\
+ \:\  \ /:/  / \:\/:/  \/__/ \:\~~\  \/__/ \/\:\  \__  \:\/:/  \/__/ \:\~~\~~\/__/
+  \:\  /:/  /   \::/__/       \:\  \        ~~\:\/\__\  \::/__/       \:\  \      
+   \:\/:/  /     \:\  \        \:\  \          \::/  /   \:\  \        \:\  \     
+    \::/  /       \:\__\        \:\__\         /:/  /     \:\__\        \:\__\    
+     \/__/         \/__/         \/__/         \/__/       \/__/         \/__/    
+                                                                            
+        </pre>
+
+            <h1 id="typing-effect"></h1>.
+
+            <ul class="sub-headings">
+                <li>Curious by Nature</li>
+                <li>Your Gym Bro</li>
+                <li>Linux Enthusiast</li>
+                <li>FOSS Advocate</li>
+            </ul>
+
+            <p>
+                TL;DR: I turn business challenges into clean, efficient code. After a few years at a SaaS startup, I
+                realized I prefer building things that work rather than figuring out why the printer doesn't.
+            </p>
+
+
+        </header>
+        <nav>
+            <ul>
+                <li><a href="#projects"><code>ls ./projects</code></a></li>
+                <li><a href="#tech-stack"><code>cat /dev/stack.log</code></a></li>
+                <li><a href="#about-me"><code>about</code></a></li>
+                <li><a href="#contact"><code>mail -s "Contact" damian</code></a></li>
+            </ul>
+        </nav>
+        <hr>
+        <main>
+            <section id="projects">
+                <h2>Projects</h2>
+                <article>
+                    <h3>TimeMate: API-first Time Tracker</h3>
+                    <p>
+                        I faced my personal nightmare—datetime—and built an entire API-first time tracking backend to
+                        finally make peace with it. This project was built from scratch, not a tutorial clone.
+                    </p>
+                    <ul>
+                        <li><b>Architecture:</b> Clean, modular, and built on SOLID principles.</li>
+                        <li><b>Performance:</b> Intelligent caching with Redis to speed up frequent queries.</li>
+                        <li><b>Reliability:</b> Over 100 unit and integration tests with 99% code coverage.</li>
+                        <li><b>Security:</b> UUIDs as primary keys, DB-level constraints, and token-based auth.</li>
+                    </ul>
+                    <a href="https://github.com/vaqMAD/TimeMate" target="_blank">View code on GitHub</a>
+                </article>
+                <br>
+                <article>
+                    <h3>Redmine Onboarding Automation (Proof of Concept)</h3>
+                    <p>
+                        An application created on my own initiative in response to a real business problem identified
+                        while
+                        working at Papu.io.
+                    </p>
+                    <ul>
+                        <li><b>Goal:</b> To prove the possibility of automating a time-consuming and error-prone
+                            process.
+                        </li>
+                        <li><b>Result:</b> Successfully reduced the number of manual steps from ~80 to 2, shortening the
+                            estimated operation time from 30 to 5 minutes.</li>
+                    </ul>
+                </article>
+
+                <hr>
+                <section id="tech-stack">
+                    <h2>Tech Stack</h2>
+                    <div class="tech-stack-animation-container">
+                        <p>$ show-skills --tree</p>
+
+                    </div>
+
+                    <pre id="skills-tree" class="tech-stack-container hidden">
+├── ╼ Backend
+│   ├── <img src="icons/python.svg" alt="Python" class="tech-icon"> Python
+│   ├── <img src="icons/django.svg" alt="Django" class="tech-icon"> Django & DRF
+│   └── Celery (learning)
+│
+├── ╼ Databases & Cache
+│   ├── <img src="icons/postgresql.svg" alt="PostgreSQL" class="tech-icon"> PostgreSQL
+│   └── <img src="icons/redis.svg" alt="Redis" class="tech-icon"> Redis
+│
+└── ╼ DevOps & Tools
+│    ├── <img src="icons/docker.svg" alt="Docker" class="tech-icon"> Docker & Docker Compose
+│    ├── <img src="icons/git.svg" alt="Git" class="tech-icon"> Git
+│    └── <img src="icons/linux.svg" alt="Git" class="tech-icon"> Linux
+│
+├── ╼ Testing
+│   └── Unit & Integration Testing
+│
+├── ╼ Architecture & Others
+│   ├──  Clean Architecture & Design Patterns
+│   └──  Rest API
+│
+├── ╼ Learning
+│    ├──  <img src="icons/go.svg" alt="Go" class="tech-icon"> Go
+│    └──  <img src="icons/fastapi.svg" alt="FastAPI" class="tech-icon"> FastAPI
+│ 
+                    </pre>
+                </section>
+
+                <hr>
+                <section id="about-me">
+                    <h2>About Me (whoami)</h2>
+                    <p>
+                        For three years, I worked at a SaaS startup, bridging the gap between business, technology, and
+                        customer
+                        support. I combine technical knowledge with a proven deep understanding of the business "why",
+                        acting as
+                        the communication link between management, R&D, and key clients to translate complex
+                        requirements
+                        into
+                        actionable development plans.
+                    </p>
+                    <blockquote>
+                        "I fully recommend Damian as a valuable employee, with a strong technical drive, who will
+                        certainly
+                        bring a lot of good to any organization."
+                        <cite>- Emil Konrad, ex. CEO Papu.io</cite>
+                    </blockquote>
+                </section>
+                <hr>
+                <section id="achievements">
+                    <h2>Achievements & Side Quests</h2>
+                    <ul>
+                        <li><b>Open Source Contribution:</b> I identified and reported a loophole in the official
+                            documentation
+                            of Django's class-based views, which led to its improvement (Ticket #36026).</li>
+                        <li><b>Real-World Problem Solving:</b> Created a Proof of Concept at my last company to automate
+                            a
+                            business process, reducing manual steps from ~80 to 2.</li>
+                    </ul>
+                </section>
+        </main>
+        <hr>
+        <footer id="contact">
+            <h2>Get In Touch</h2>
+            <p>I'm always open to chat about tech, new opportunities, or the meaning of life. Feel free to reach out.
+            </p>
+            <ul>
+                <li><a href="mailto:damian.ignaczak.dev@gmail.com">damian.ignaczak.dev@gmail.com</a></li>
+                <li><a href="https://github.com/vaqMAD" target="_blank">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/damian-ignaczak/" target="_blank">LinkedIn</a></li>
+            </ul>
+            <hr>
+            <p><small>&copy; 2025 Damian Ignaczak. Built with coffee and a bit of black magic.</small></p>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>\
+    <script src="script.js"></script>
+</body>
+
+</html>

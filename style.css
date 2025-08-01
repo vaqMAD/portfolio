@@ -1,0 +1,192 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--bg-color: #211e1c;
+	--text-color: #e0e0e0;
+	--accent-color: #d4a373;
+	--gray-color: #6c757d;
+}
+
+.wrapper {
+	max-width: 850px;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	font-family: 'Inter', sans-serif;
+	line-height: 1.6;
+}
+
+section {
+	margin-bottom: 4rem;
+}
+
+
+h2 {
+	color: var(--accent-color);
+	margin-bottom: 1.5rem;
+}
+
+h3 {
+	margin-bottom: 1rem;
+}
+
+a {
+	color: var(--accent-color);
+	text-decoration: none;
+	transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+	color: var(--text-color);
+}
+
+header pre {
+	font-family: 'Fira Code', monospace;
+	color: var(--accent-color);
+	text-align: center;
+	margin-bottom: 2rem;
+	font-size: 0.9rem;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	justify-content: flex-start;
+	gap: 2rem;
+	margin-bottom: 4rem;
+}
+
+nav a {
+	font-family: 'Fira Code', monospace;
+	text-transform: lowercase;
+	white-space: nowrap;
+}
+
+blockquote {
+	margin: 2rem 0;
+	border-left: 3px solid var(--accent-color);
+	padding-left: 1.5rem;
+	color: var(--gray-color);
+	font-style: italic;
+}
+
+blockquote cite {
+	display: block;
+	margin-top: 1rem;
+	font-style: normal;
+}
+
+strong,
+b {
+	color: var(--text-color);
+	font-weight: 600;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: var(--gray-color);
+	opacity: 0.3;
+	margin: 4rem auto;
+}
+
+code {
+	background-color: rgba(255, 255, 255, 0.05);
+	padding: 0.2rem 0.4rem;
+	border-radius: 4px;
+	font-family: 'Fira Code', monospace;
+}
+
+nav li::after {
+	content: '|';
+	color: var(--gray-color);
+	margin-left: 2rem;
+	opacity: 0.5;
+}
+
+nav li:last-child::after {
+	content: '';
+}
+
+header {
+	margin-bottom: 4rem;
+}
+
+
+
+.heading-container {
+	display: flex;
+	align-items: center;
+}
+
+
+.sub-headings {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap; /* Pozwala na zawijanie na mniejszych ekranach */
+    justify-content: flex-start; /* Wyrównanie do lewej, spójne z resztą layoutu */
+    gap: 0.5rem 1rem; /* Mniejszy odstęp pion/poziom */
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--gray-color); /* Używamy szarego koloru, żeby nie konkurował z h1 */
+}
+
+.sub-headings li::after {
+    content: '|';
+    color: var(--gray-color);
+    margin-left: 1rem; /* Odstęp separatora od tekstu */
+    opacity: 0.5;
+}
+
+.sub-headings li:last-child::after {
+    content: ''; /* Usuwamy separator po ostatnim elemencie */
+}
+
+.tech-stack-container {
+    background-color: rgba(0, 0, 0, 0.2); /* Lekko ciemniejsze tło */
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-family: 'Fira Code', monospace;
+    color: var(--text-color);
+    line-height: 2; /* Zwiększamy odstępy między liniami dla czytelności */
+}
+
+/* Styl dla ikon technologii */
+.tech-icon {
+    height: 1.1rem; /* Ustawiamy spójną wysokość dla wszystkich ikon */
+    width: auto; /* Szerokość dostosuje się automatycznie */
+    vertical-align: middle; /* Kluczowe! Wyrównuje ikonę do środka tekstu */
+    margin-right: 0.5rem; /* Odstęp między ikoną a tekstem */
+
+    /*
+     * NAJLEPSZY TRIK: Zamiast edytować każdy plik SVG,
+     * zmieniamy jego kolor za pomocą filtra CSS!
+     * Poniższy filtr konwertuje czarny kolor ikony na nasz --text-color (#e0e0e0).
+    */
+    filter: invert(91%) sepia(3%) saturate(133%) hue-rotate(314deg) brightness(92%) contrast(93%);
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+
+
+.tech-stack-animation-container {
+    font-family: 'Fira Code', monospace;
+    line-height: 1.8;
+}
