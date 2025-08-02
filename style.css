@@ -1,13 +1,29 @@
-html {
-    scroll-behavior: smooth;
-}
+/* ==========================================================================
+   1. SETUP & GLOBAL STYLES
+   ========================================================================== */
 
+.ascii-small {
+    display: none;
+}
+/*
+ * A simple CSS Reset to ensure a consistent baseline across browsers.
+ */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
+/*
+ * Smooth scrolling experience for anchor links.
+ */
+html {
+	scroll-behavior: smooth;
+}
+
+/*
+ * CSS Custom Properties (Variables) for a consistent color palette and easy theme management.
+ */
 :root {
 	--bg-color: #211e1c;
 	--text-color: #e0e0e0;
@@ -15,23 +31,123 @@ html {
 	--gray-color: #6c757d;
 }
 
+/*
+ * Default body styles.
+ */
+body {
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	font-family: 'Inter', sans-serif;
+	line-height: 1.6;
+	/* Establishes a new stacking context to contain pseudo-elements and prevent z-index issues. */
+	isolation: isolate;
+}
+
+/*
+ * Custom styling for text selection to match the site's accent color.
+ */
+::selection {
+	background-color: var(--accent-color);
+	color: var(--bg-color);
+}
+
+
+/* ==========================================================================
+   2. BACKGROUND ELEMENTS & ANIMATIONS
+   ========================================================================== */
+
+/* --- Decorative Background "Stains" --- */
+
+/* * Common setup for all stain elements.
+ * The width and height are dynamically set by JavaScript to bypass a browser rendering bug
+ * with 'vw' units on fixed, animated elements.
+ */
+.stain-left-large,
+.stain-left-small,
+.background-stain {
+	position: fixed;
+	z-index: -1; /* Placed behind all other content. */
+	animation: pulse-glow 18s infinite ease-in-out;
+}
+
+.stain-left-small {
+	top: 8vh;
+	left: 20px;
+	background-color: #D7CCC8; /* "Milk foam" color */
+	transform: rotate(-30deg);
+	/* The border-radius trick with 8 values creates an organic, non-circular shape. */
+	border-radius: 73% 27% 44% 56% / 60% 49% 51% 40%;
+	animation-delay: -9s; /* Offsets the animation to desynchronize it from others. */
+	transition: background-color 0.5s ease-in-out;
+}
+
+.stain-left-large {
+	bottom: 5vh;
+	left: -100px;
+	background-color: #2d2825; /* "Espresso" color */
+	transform: rotate(25deg);
+	border-radius: 48% 52% 69% 31% / 30% 61% 39% 70%;
+}
+
+.stain-right-large,
+.stain-right-small {
+	position: fixed;
+	z-index: -1;
+	animation: pulse-glow 15s infinite ease-in-out;
+}
+
+.stain-right-large {
+	top: 10%;
+	right: -5%;
+	background-color: #4a3f35; 
+	transform: rotate(-15deg);
+	border-radius: 65% 35% 44% 56% / 58% 53% 47% 42%;
+}
+
+.stain-right-small {
+	top: 18%; 
+	right: 5%;
+	transform: rotate(10deg);
+	background-color: #2d2825;
+	border-radius: 36% 64% 52% 48% / 43% 38% 62% 57%;
+	animation-delay: -7s;
+}
+
+/* --- Keyframe Animations --- */
+
+@keyframes pulse-glow {
+	50% {
+		/* The scale transform creates the "pulsing" effect. */
+		transform: scale(1.05);
+		/* The box-shadow provides the "glow" effect. */
+		box-shadow: 0 0 45px rgba(212, 163, 115, 0.2);
+	}
+}
+
+@keyframes typedjsBlink {
+	50% {
+		opacity: 0;
+	}
+}
+
+
+/* ==========================================================================
+   3. LAYOUT & TYPOGRAPHY
+   ========================================================================== */
+
+/* --- Main Content Wrapper --- */
 .wrapper {
 	max-width: 850px;
 	margin: 0 auto;
 	padding: 2rem;
 }
 
-body {
-	background-color: var(--bg-color);
-	color: var(--text-color);
-	font-family: 'Inter', sans-serif;
-	line-height: 1.6;
-}
+/* --- Typography --- */
 
-section {
-	margin-bottom: 4rem;
+h1 {
+	font-size: 2.5rem;
+	font-weight: 600;
 }
-
 
 h2 {
 	color: var(--accent-color);
@@ -52,34 +168,28 @@ a:hover {
 	color: var(--text-color);
 }
 
-header pre {
-	font-family: 'Fira Code', monospace;
-	color: var(--accent-color);
-	text-align: center;
-	margin-bottom: 2rem;
-	font-size: 0.9rem;
-}
-
-nav ul {
-	list-style: none;
-	display: flex;
-	justify-content: flex-start;
-	gap: 2rem;
-	margin-bottom: 4rem;
-}
-
-nav a {
-	font-family: 'Fira Code', monospace;
-	text-transform: lowercase;
-	white-space: nowrap;
-}
-
 blockquote {
 	margin: 2rem 0;
-	border-left: 3px solid var(--accent-color);
+	border-left: 3px solid var(--gray-color);
 	padding-left: 1.5rem;
-	color: var(--gray-color);
+	color: var(--text-color);
 	font-style: italic;
+	transition: all 0.3s ease-in-out;
+}
+
+blockquote:hover {
+	border-left-color: var(--accent-color);
+	color: var(--accent-color);
+	transform: scale(1.02); /* Subtle zoom effect on hover. */
+}
+
+blockquote a {
+	color: var(--text-color);
+	text-decoration: underline;
+}
+
+blockquote a:hover {
+	color: var(--accent-color);
 }
 
 blockquote cite {
@@ -94,14 +204,7 @@ b {
 	font-weight: 600;
 }
 
-hr {
-	border: none;
-	height: 1px;
-	background-color: var(--gray-color);
-	opacity: 0.3;
-	margin: 4rem auto;
-}
-
+/* Styles for inline code snippets. */
 code {
 	background-color: rgba(255, 255, 255, 0.05);
 	padding: 0.2rem 0.4rem;
@@ -109,84 +212,478 @@ code {
 	font-family: 'Fira Code', monospace;
 }
 
-nav li::after {
+/* A thematic horizontal rule for separating sections. */
+hr {
+	border: none;
+	height: 1px;
+	background-color: var(--gray-color);
+	opacity: 0.2;
+	margin: 3rem 0;
+}
+
+
+/* ==========================================================================
+   4. PAGE SECTIONS & COMPONENTS
+   ========================================================================== */
+
+/* --- General Section Styling --- */
+main section {
+	position: relative; /* Establishes a stacking context for child elements. */
+	z-index: 1; /* Ensures sections appear on top of background stains. */
+	text-align: left;
+}
+
+/* --- Header Component --- */
+header {
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	text-align: left;
+}
+
+/* ASCII art styling. */
+header .ascii-large {
+	font-family: 'Fira Code', monospace;
+	color: var(--accent-color);
+	margin-bottom: 2rem;
+	font-size: 0.9rem;
+}
+
+.tldr-section {
+	text-align: left;
+	margin-bottom: 2rem;
+}
+
+/* Shared styles for the tagline and contact link lists. */
+.tagline-list,
+.contact-links {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: left;
+	gap: 0.5rem 1rem;
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
+	font-size: 0.9rem;
+	color: var(--gray-color);
+}
+
+/* Vertical bar separator for list items. */
+.tagline-list li::after,
+.contact-links li::after {
 	content: '|';
 	color: var(--gray-color);
-	margin-left: 2rem;
+	margin-left: 1rem;
 	opacity: 0.5;
 }
 
-nav li:last-child::after {
+/* Removes the separator from the last item in the list. */
+.tagline-list li:last-child::after,
+.contact-links li:last-child::after {
 	content: '';
 }
 
-header {
-	margin-bottom: 4rem;
-}
-
-
-
-.heading-container {
-	display: flex;
+.contact-links a {
+	color: inherit; /* Links inherit the gray color from the parent list. */
+	display: inline-flex;
 	align-items: center;
+	gap: 0.5rem;
+	text-decoration: none;
+	transition: color 0.2s ease-in-out;
+}
+
+.contact-links a:hover {
+	color: var(--text-color);
+}
+
+/* --- Navigation Component --- */
+nav ul {
+	list-style: none;
+	display: flex;
+	justify-content: left;
+	gap: 2rem;
+	margin: 0;
+	padding: 0;
+}
+
+nav a {
+	font-family: 'Fira Code', monospace;
+	text-transform: lowercase;
+	white-space: normal;
+}
+
+/* --- About Me Section --- */
+#about-me p {
+	margin-bottom: 1.5rem;
+}
+
+#about-me p:last-of-type {
+	margin-bottom: 0;
+}
+
+/* --- Projects & Achievements Lists --- */
+/* Shared styles for custom bullet points. */
+#projects ul,
+#achievements ul {
+	list-style: none;
+	padding-left: 0;
+	margin-top: 1.5rem;
+}
+
+#projects ul li,
+#achievements ul li {
+	padding-left: 25px; /* Creates space for the custom bullet. */
+	margin-bottom: 1rem;
+	position: relative;
+}
+
+/* Custom bullet point '»' using a pseudo-element. */
+#projects ul li::before,
+#achievements ul li::before {
+	content: '»';
+	color: var(--accent-color);
+	position: absolute;
+	left: 0;
+	top: 2px;
+	font-weight: 600;
+}
+
+/* --- Project Cards --- */
+.projects-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	margin-top: 2rem;
+}
+
+.project-card {
+	background-color: var(--bg-color);
+	border: 1px solid rgba(224, 224, 224, 0.1);
+	border-radius: 8px;
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+/* Pushes the link to the bottom of the card. */
+.project-card a {
+	margin-top: auto;
+	align-self: flex-start;
+}
+
+/* --- Tech Stack Terminal --- */
+.terminal-container {
+	background-color: #1a1816;
+	border: 1px solid var(--accent-color);
+	border-radius: 8px;
+	padding: 1.5rem;
+	margin-top: 1.5rem;
+	overflow: hidden;
+}
+
+#terminal-output {
+	font-family: 'Fira Code', monospace;
+	line-height: 2;
+	white-space: pre-wrap; /* Allows text to wrap within the terminal. */
+}
+
+.terminal-category {
+	color: #26a269; /* Green color for category titles. */
+}
+
+/* A CSS filter to convert black SVG icons to the theme's text color. */
+.icon,
+.tech-icon,
+.linkedin-icon {
+	width: auto;
+	vertical-align: middle;
+	filter: invert(91%) sepia(3%) saturate(133%) hue-rotate(314deg) brightness(92%) contrast(93%);
 }
 
 
-.sub-headings {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap; /* Pozwala na zawijanie na mniejszych ekranach */
-    justify-content: flex-start; /* Wyrównanie do lewej, spójne z resztą layoutu */
-    gap: 0.5rem 1rem; /* Mniejszy odstęp pion/poziom */
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
-    color: var(--gray-color); /* Używamy szarego koloru, żeby nie konkurował z h1 */
-}
-
-.sub-headings li::after {
-    content: '|';
-    color: var(--gray-color);
-    margin-left: 1rem; /* Odstęp separatora od tekstu */
-    opacity: 0.5;
-}
-
-.sub-headings li:last-child::after {
-    content: ''; /* Usuwamy separator po ostatnim elemencie */
-}
-
-.tech-stack-container {
-    background-color: rgba(0, 0, 0, 0.2); /* Lekko ciemniejsze tło */
-    padding: 1.5rem;
-    border-radius: 8px;
-    font-family: 'Fira Code', monospace;
-    color: var(--text-color);
-    line-height: 2; /* Zwiększamy odstępy między liniami dla czytelności */
-}
-
-/* Styl dla ikon technologii */
+/* 2. Default size for most icons */
+.icon,
 .tech-icon {
-    height: 1.1rem; /* Ustawiamy spójną wysokość dla wszystkich ikon */
-    width: auto; /* Szerokość dostosuje się automatycznie */
-    vertical-align: middle; /* Kluczowe! Wyrównuje ikonę do środka tekstu */
-    margin-right: 0.5rem; /* Odstęp między ikoną a tekstem */
-
-    /*
-     * NAJLEPSZY TRIK: Zamiast edytować każdy plik SVG,
-     * zmieniamy jego kolor za pomocą filtra CSS!
-     * Poniższy filtr konwertuje czarny kolor ikony na nasz --text-color (#e0e0e0).
-    */
-    filter: invert(91%) sepia(3%) saturate(133%) hue-rotate(314deg) brightness(92%) contrast(93%);
+	height: 1.1rem;
 }
 
-.hidden {
+.linkedin-icon {
+	height: 1.8em; /* Overrides the default icon height. */
+}
+
+.typed-cursor--static {
+	animation: none;
+}
+
+.loading-cursor {
+	opacity: 1;
+	animation: typedjsBlink 0.7s infinite;
+	font-weight: bold;
+}
+
+
+/* --- Career Timeline Component --- */
+
+/* --- Nowy Timeline --- */
+#career-path {
+    padding: 4rem 0;
+}
+
+.timeline {
+    position: relative; /* Potrzebne, żeby umieścić SVG i poświatę wewnątrz */
+    width: 100%;
+    max-width: 800px; /* Ogranicz szerokość dla czytelności */
+    margin: 0 auto;
+}
+
+.timeline-list {
+    list-style: none;
+    padding: 0;
+    /* Tworzymy siatkę z dwiema kolumnami, przedzielonymi 40px przerwy na "tory" */
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr; /* Kolumna lewa | przerwa | kolumna prawa */
+    gap: 2rem 0; /* Odstęp tylko między wierszami */
+}
+
+.timeline-list li {
+    position: relative; /* Potrzebne do pozycjonowania kropki */
+    padding: 1rem;
+}
+
+/* --- Magia z CSS Grid --- */
+/* Nieparzyste elementy (1, 3, 5...) umieszczamy w pierwszej kolumnie */
+.timeline-list li:nth-child(odd) {
+    grid-column: 1; /* Umieść w pierwszej kolumnie siatki */
+    text-align: right; /* Wyrównaj tekst do prawej */
+}
+
+/* Parzyste elementy (2, 4, 6...) umieszczamy w trzeciej kolumnie */
+.timeline-list li:nth-child(even) {
+    grid-column: 3; /* Umieść w trzeciej kolumnie siatki */
+    text-align: left; /* Wyrównaj tekst do lewej */
+}
+
+/* Kropka na osi czasu */
+.timeline-list li::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-color: var(--bg-color);
+    border: 3px solid var(--accent-color);
+    border-radius: 50%;
+    z-index: 10; /* Kropka musi być nad torami */
+}
+
+/* Ustawiamy kropkę na krawędzi w zależności od strony */
+.timeline-list li:nth-child(odd)::after {
+    right: -28px; /* Przesuwamy na środek przerwy */
+}
+
+.timeline-list li:nth-child(even)::after {
+    left: -28px; /* Przesuwamy na środek przerwy */
+}
+
+.timeline-content {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(224, 224, 224, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.timeline-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Tory są pod kropkami, ale nad tłem */
+}
+
+.timeline-glow {
+    position: absolute;
+    /* Style wyglądu skopiuj ze starej klasy .timeline-glow */
+    width: 24px;
+    height: 24px;
+    background-color: rgba(212, 163, 115, 0.7);
+    border-radius: 50%;
+    box-shadow: 0 0 15px 5px rgba(212, 163, 115, 0.5);
+    /* Pozycja początkowa, ukryta */
     opacity: 0;
-    transition: opacity 0.8s ease-in-out;
+    /* Animujemy transform i opacity */
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 11; /* Poświata jest na samym wierzchu */
+}
+
+/* --- Responsywność --- */
+@media (max-width: 768px) {
+    /* Na mobilce zmieniamy siatkę na jedną kolumnę */
+    .timeline-list {
+        grid-template-columns: 40px 1fr; /* Przerwa na tory | Kolumna prawa */
+        gap: 1.5rem 0;
+    }
+
+    /* Wszystkie elementy lądują w drugiej kolumnie */
+    .timeline-list li:nth-child(odd),
+    .timeline-list li:nth-child(even) {
+        grid-column: 2;
+        text-align: left;
+    }
+    
+    /* Kropka dla wszystkich jest teraz po lewej stronie */
+    .timeline-list li:nth-child(odd)::after,
+    .timeline-list li:nth-child(even)::after {
+        left: -28px;
+        right: auto;
+    }
+}
+
+/* --- Footer Component --- */
+footer {
+	text-align: left;
+	padding: 0.2rem 0 2rem;
+	margin-top: 0.2rem;
+	font-size: 0.9rem;
+	color: var(--gray-color);
+}
+
+footer p {
+	margin: 0;
+	line-height: 1.8;
+}
+
+footer a {
+	color: var(--gray-color);
+	text-decoration: none;
+}
+
+footer a:hover {
+	color: var(--text-color);
 }
 
 
+/* ==========================================================================
+   5. RESPONSIVE ADJUSTMENTS
+   ========================================================================== */
 
-.tech-stack-animation-container {
-    font-family: 'Fira Code', monospace;
-    line-height: 1.8;
+@media (max-width: 1200px) {
+    .stain-left-small {
+        background-color: #2d2825; /* "Espresso" color */
+    }
 }
+
+
+@media (max-width: 768px) {
+
+	/* --- Projects Section on Mobile --- */
+	.projects-grid {
+		grid-template-columns: 1fr; /* Stacks project cards vertically. */
+	}
+
+	/* --- Career Timeline on Mobile --- */
+	.timeline-container::before {
+		/* Changes the main axis from horizontal to vertical. */
+		width: 2px;
+		height: 100%;
+		left: 20px;
+		top: 0;
+		transform: none;
+	}
+
+	.timeline-row {
+		flex-direction: column; /* Stacks all items in a single column. */
+	}
+
+	.timeline-row:last-child {
+		margin-top: 0;
+	}
+
+	.timeline-item {
+		padding-left: 50px; /* Creates space for the vertical timeline axis. */
+		min-height: auto;
+		padding-top: 0;
+		padding-bottom: 2rem;
+	}
+
+	.timeline-item::before {
+		left: 20px;
+		top: 0; /* Aligns all dots to the top of their item. */
+		transform: translateX(-50%);
+	}
+
+	.timeline-row:first-child .timeline-content,
+	.timeline-row:last-child .timeline-content {
+		position: static; /* Resets absolute positioning. */
+		transform: none;
+		text-align: left;
+		width: 100%;
+	}
+
+	/* Hides the vertical connector lines as they are no longer needed. */
+
+/* ==========================================================================
+6. ASCII ART & FINAL TWEAKS
+========================================================================== */
+
+
+
+@media (max-width: 768px) {
+    .ascii-large {
+        display: none;
+    }
+
+    .ascii-small {
+        display: block;
+        font-size: 0.7rem;
+        text-align: left;
+		font-family: 'Fira Code', monospace;
+		color: var(--accent-color);
+    }
+
+	h1 {
+        font-size: 1.8rem;
+    }
+
+    .wrapper {
+        padding: 1.5rem;
+    }
+
+    header,
+    .tldr-section {
+        text-align: left; 
+    }
+
+    /* --- Listy pod nagłówkiem --- */
+    .tagline-list,
+    .contact-links {
+        justify-content: left; /* Wycentruj elementy list */
+        gap: 0.5rem 0.8rem;      /* Dostosuj odstepy */
+    }
+    
+    .tagline-list {
+        font-size: 0.8rem;
+    }
+    
+    /* --- Nawigacja --- */
+    nav ul {
+        flex-direction: column; /* Zmieniamy oś flexboxa na pionową */
+        align-items: left;    /* Centrujemy linki nawigacji */
+        gap: 1rem;              /* Zwiększamy odstęp między nimi */
+    }
+
+    /* --- Poprawki w sekcjach --- */
+    #about-me,
+    #projects,
+    #achievements,
+    #tech-stack,
+    #career-path,
+    footer {
+        text-align: left; /* Upewnijmy się, że treść główna jest do lewej */
+    }
+
+    /* Ukrywamy pionowe linie w timeline, bo już nie pasują */
+    .timeline-item::after {
+        display: none;
+    }
+}
+
