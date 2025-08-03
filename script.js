@@ -1,18 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 	// ==========================================================================
-	// 1. GŁÓWNA ANIMACJA NAGŁÓWKA (TYPED.JS)
+	// 1. HEADER TYPEWRITER ANIMATION (Typed.js)
 	// ==========================================================================
-	new Typed('#typing-effect', {
-		strings: ['Damian Ignaczak | Backend Developer'],
-		typeSpeed: 80,
-		backSpeed: 50,
-		backDelay: 4000,
-		loop: true,
-		cursorChar: '_',
-	});
+	if (typeof Typed !== 'undefined') {
+		new Typed('#typing-effect', {
+			strings: ['Damian Ignaczak | Backend Developer'],
+			typeSpeed: 80,
+			backSpeed: 50,
+			backDelay: 4000,
+			loop: true,
+			cursorChar: '_',
+		});
+	}
 
 	// ==========================================================================
-	// 2. LOGIKA ZMIANY ROZMIARU DEKORACYJNYCH "PLAM"
+	// 2. BACKGROUND STAIN SIZE LOGIC
 	// ==========================================================================
 	function updateAllStainSizes() {
 		const viewportWidth = window.innerWidth;
@@ -22,50 +24,45 @@ document.addEventListener('DOMContentLoaded', () => {
 		const smallRightStain = document.querySelector('.stain-right-small');
 
 		if (largeLeftStain) {
-			const size = viewportWidth * 0.28;
-			largeLeftStain.style.width = `${size}px`;
-			largeLeftStain.style.height = `${size}px`;
+			largeLeftStain.style.width = `${viewportWidth * 0.28}px`;
+			largeLeftStain.style.height = `${viewportWidth * 0.28}px`;
 		}
 		if (smallLeftStain) {
-			const size = viewportWidth * 0.1;
-			smallLeftStain.style.width = `${size}px`;
-			smallLeftStain.style.height = `${size}px`;
+			smallLeftStain.style.width = `${viewportWidth * 0.1}px`;
+			smallLeftStain.style.height = `${viewportWidth * 0.1}px`;
 		}
 		if (largeRightStain) {
-			const size = viewportWidth * 0.38;
-			largeRightStain.style.width = `${size}px`;
-			largeRightStain.style.height = `${size}px`;
+			largeRightStain.style.width = `${viewportWidth * 0.38}px`;
+			largeRightStain.style.height = `${viewportWidth * 0.38}px`;
 		}
 		if (smallRightStain) {
-			const size = viewportWidth * 0.26;
-			smallRightStain.style.width = `${size}px`;
-			smallRightStain.style.height = `${size}px`;
+			smallRightStain.style.width = `${viewportWidth * 0.26}px`;
+			smallRightStain.style.height = `${viewportWidth * 0.26}px`;
 		}
 	}
 
-	// Uruchamiamy przy zmianie rozmiaru okna
-	window.addEventListener('resize', updateAllStainSizes);
-	// Uruchamiamy raz na starcie
 	updateAllStainSizes();
+	window.addEventListener('resize', updateAllStainSizes);
 
 	// ==========================================================================
-	// 3. ANIMACJA TERMINALA Z TECH STACKIEM
+	// 3. TERMINAL ANIMATION
 	// ==========================================================================
 	const techStackSection = document.querySelector('#tech-stack');
-	if (techStackSection) {
+	if (techStackSection && typeof Typed !== 'undefined') {
 		const terminalOutput = document.getElementById('terminal-output');
 		let animationHasStarted = false;
 
 		const techStackObserver = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
+			entries => {
+				entries.forEach(entry => {
 					if (entry.isIntersecting && !animationHasStarted) {
 						animationHasStarted = true;
-						techStackObserver.unobserve(techStackSection);
 						startTechStackAnimation(terminalOutput);
+						techStackObserver.unobserve(techStackSection);
 					}
 				});
-			}, {
+			},
+			{
 				threshold: 0.2,
 			}
 		);
@@ -112,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				showCursor: true,
 				cursorChar: '_',
 				contentType: 'html',
-				onComplete: (self) => {
+				onComplete: self => {
 					const cursor = self.el.querySelector('.typed-cursor');
 					if (cursor) {
 						cursor.classList.add('typed-cursor--static');
@@ -123,77 +120,87 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// ==========================================================================
-	// 4. ANIMACJA TIMELINE Z SVG
+	// 4. CAREER PATH TIMELINE ANIMATION (GSAP)
 	// ==========================================================================
-	const timeline = document.querySelector('.timeline');
-	if (timeline) {
-		const path = document.getElementById('timeline-path');
-		const glow = document.querySelector('.timeline-glow');
-		const items = document.querySelectorAll('.timeline-list li');
-		let animationFrameId;
+	const careerSection = document.querySelector('#career-path');
+	if (careerSection && typeof gsap !== 'undefined') {
+		let timelineAnimationHasStarted = false;
 
-		function drawPath() {
-			if (!items.length || !path) return;
-			let pathData = '';
-			const timelineRect = timeline.getBoundingClientRect();
+		const careerObserver = new IntersectionObserver(
+			entries => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting && !timelineAnimationHasStarted) {
+						timelineAnimationHasStarted = true;
 
-			items.forEach((item, i) => {
-				const itemRect = item.getBoundingClientRect();
-				// Obliczamy środek kropki względem kontenera .timeline
-				const x = itemRect.left - timelineRect.left + (item.offsetWidth / 2);
-				const y = itemRect.top - timelineRect.top + (item.offsetHeight / 2);
+						const revealTl = gsap.timeline({
+							onComplete: () => {
+								const pulseTl = gsap.timeline({
+									repeat: -1,
+									yoyo: true,
+									defaults: { duration: 1.5, ease: 'power1.inOut' },
+								});
 
-				if (i === 0) {
-					pathData += `M ${x} ${y}`;
-				} else {
-					pathData += ` L ${x} ${y}`;
-				}
-			});
-			path.setAttribute('d', pathData);
-		}
+								// Pulse the last item
+								pulseTl.to(
+									'.timeline-item:last-child',
+									{
+										scale: 1.05, // Pulse effect intensity
+									},
+									0 // Start at the beginning of the timeline
+								);
 
-		function startAnimation() {
-			if (!path || !glow) return;
+								// Simultaneously animate the dot using CSS variables
+								pulseTl.to(
+									'.timeline-item:last-child',
+									{
+										'--dot-scale': 1.3,
+										'--dot-shadow-opacity': 0.7,
+									},
+									0 // Ensures perfect sync with the item's pulsing
+								);
+							},
+						});
 
-			cancelAnimationFrame(animationFrameId);
-			const pathLength = path.getTotalLength();
-			let distance = 0;
-			glow.style.opacity = '1';
+						// Animate the appearance of all timeline items
+						revealTl.to('.timeline-item', {
+							opacity: 1,
+							y: 0,
+							duration: 0.8,
+							ease: 'power2.out',
+							stagger: 0.3,
+						});
 
-			function animate() {
-				distance += 2; // Prędkość animacji
-				if (distance > pathLength) {
-					cancelAnimationFrame(animationFrameId);
-					// Opcjonalnie: ukryj poświatę na końcu
-					// glow.style.opacity = '0';
-					return;
-				}
-				const point = path.getPointAtLength(distance);
-				glow.style.transform = `translate(${point.x - glow.offsetWidth / 2}px, ${point.y - glow.offsetHeight / 2}px)`;
-				animationFrameId = requestAnimationFrame(animate);
-			}
-			animate();
-		}
-
-		const timelineObserver = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						drawPath();
-						setTimeout(startAnimation, 200);
-						timelineObserver.unobserve(timeline);
+						careerObserver.unobserve(careerSection);
 					}
 				});
-			}, {
-				threshold: 0.5
-			}
+			},
+			{ threshold: 0.2 }
 		);
-		timelineObserver.observe(timeline);
 
-		window.addEventListener('resize', () => {
-			// Przy zmianie rozmiaru, tylko przerysuj ścieżkę
-			// Nie restartujemy animacji, jeśli już się zaczęła
-			drawPath();
+		careerObserver.observe(careerSection);
+	}
+	
+	// ==========================================================================
+	// 5. COLLAPSIBLE "AFTER HOURS" SECTION
+	// ==========================================================================
+	const toggleBtn = document.getElementById('toggle-after-hours');
+	const content = document.getElementById('collapsible-content');
+
+	if (toggleBtn && content) {
+		toggleBtn.addEventListener('click', () => {
+			// Toggle classes on the button and content container
+			toggleBtn.classList.toggle('is-open');
+			content.classList.toggle('is-open');
+
+			// Check if the container is now open
+			if (content.classList.contains('is-open')) {
+				// If so, set max-height to its full, natural scroll height
+				// This ensures a smooth animation to the correct size.
+				content.style.maxHeight = content.scrollHeight + 'px';
+			} else {
+				// If not (it's closing), reset max-height to the value from CSS.
+				content.style.maxHeight = null;
+			}
 		});
 	}
 });

@@ -141,33 +141,43 @@
                     Stoicism is my OS — mostly stable, except when it crashes with a
                     bluescreen when I try to understand sense of the world.
                 </p>
-                <p><b>After hours?</b></p>
-                <p>
-                    When I'm not overthinking microservices or the meaning of existence, I’m usually reading, lifting at
-                    gym,
-                    aimlessly walking, playing LoL / CS2 (Silver in LoL, 2500 elo in CS2 — yes, I carry) or testing
-                    the limits of irony in everyday life.
-                </p>
-                <p>
-                    By the way — have you heard that Linux is better than Windows? If not, don’t worry. I have an entire
-                    internal monologue prepared for this moment.
-                </p>
-                <p>
-                    I lost 25kg this year — roughly the RAM usage of a JS backend. The website you're on? A painful
-                    proof I survived it.
-                </p>
-                <p>
-                    When things break, I read the manual. If it still doesn’t work — it’s probably a conspiracy. Cats
-                    might be involved.
-                </p>
-                <p>
-                    Superpower? I look at broken tech, and it fixes itself. Out of shame. Or fear. Not sure.
-                    Or so my family claims.
-                </p>
-                <p>
-                    I like memes, philosophy, and people who don’t take themselves too seriously. If you’re one of them
-                    — let’s talk. And if you’re not — let’s talk anyway, maybe you’ll learn something 😉.
-                </p>
+                <button id="toggle-after-hours" class="toggle-button">
+                    <b>After hours?</b> <span class="arrow">▼</span>
+                </button>
+
+                <div id="collapsible-content" class="collapsible-content">
+                    <p>
+                        When I'm not overthinking microservices or the meaning of existence, I’m usually reading,
+                        lifting at
+                        gym,
+                        aimlessly walking, playing LoL / CS2 (Silver in LoL, 2500 elo in CS2 — yes, I carry) or testing
+                        the limits of irony in everyday life.
+                    </p>
+                    <p>
+                        By the way — have you heard that Linux is better than Windows? If not, don’t worry. I have an
+                        entire
+                        internal monologue prepared for this moment.
+                    </p>
+                    <p>
+                        I lost 25kg this year — roughly the RAM usage of a JS backend. The website you're on? A painful
+                        proof I survived it.
+                    </p>
+                    <p>
+                        When things break, I read the manual. If it still doesn’t work — it’s probably a conspiracy.
+                        Cats
+                        might be involved.
+                    </p>
+                    <p>
+                        Superpower? I look at broken tech, and it fixes itself. Out of shame. Or fear. Not sure.
+                        Or so my family claims.
+                    </p>
+                    <p>
+                        I like memes, philosophy, and people who don’t take themselves too seriously. If you’re one of
+                        them
+                        — let’s talk. And if you’re not — let’s talk anyway, maybe you’ll learn something 😉.
+                    </p>
+                </div>
+                
                 <p><b>Right now?</b></p>
                 <p>Hunting for my first dev job. Wish me luck (or send offers 👀).</p>
                 <blockquote>
@@ -184,52 +194,56 @@
             </section>
 
             <hr>
+
             <section id="career-path">
                 <h2>Career Path</h2>
-                <div class="timeline">
-                    <svg class="timeline-svg" width="100%" height="100%">
-                        <path id="timeline-path" fill="none" stroke="var(--gray-color)" stroke-width="2"></path>
-                    </svg>
-
-                    <ol class="timeline-list">
-                        <li>
+                <div class="timeline-container">
+                    <ul class="timeline-list">
+                        <li class="timeline-item">
                             <div class="timeline-content">
-                                <h3>Maybe an Internship?</h3>
-                                <p>Startup Life</p>
-                                <time>2024 - 2025</time>
+                                <h3>2017 - 2020 // Sales</h3>
+                                <p>I was chasing sales targets and learning how to talk to people. I didn't know my real
+                                    purpose yet.</p>
                             </div>
                         </li>
-                        <li>
+                        <li class="timeline-item">
                             <div class="timeline-content">
-                                <h3>Your First Job</h3>
-                                <p>Company Name</p>
-                                <time>2025 - Present</time>
+                                <h3>Early 2021 // Papu.io</h3>
+                                <p>Joined Papu.io. Support, tech talks, and enough client calls to earn an honorary
+                                    psychology degree.</p>
                             </div>
                         </li>
-                        <li>
+                        <li class="timeline-item">
                             <div class="timeline-content">
-                                <h3>Something Else</h3>
-                                <p>Another Company</p>
-                                <time>2026 - 2027</time>
+                                <h3>2022 // The spark</h3>
+                                <p> I wanted to write the spells myself. First "Hello, World!" in Python. I was hooked.
+                                    Late nights, lots of bugs, and a new obsession was born.</p>
                             </div>
                         </li>
-                        <li>
+                        <li class="timeline-item">
                             <div class="timeline-content">
-                                <h3>Another Cool Thing</h3>
-                                <p>Side Project</p>
-                                <time>2025 - 2026</time>
+                                <h3>2022 // Manager at Papu.io</h3>
+                                <p>Promotion to manager.</p>
                             </div>
                         </li>
-                        <li>
+                        <li class="timeline-item">
                             <div class="timeline-content">
-                                <h3>And Another One</h3>
-                                <p>The Big Corp</p>
-                                <time>2027 - 2029</time>
+                                <h3>2024 // The Forge</h3>
+                                <p>Theory turned into practice. Start building portfolio projects and searching for job.
+                                </p>
                             </div>
                         </li>
-                    </ol>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Now // The Hunt</h3>
+                                <p>Ready to ship. Searching for my first dev job. Code is clean, docs are neat, memes
+                                    are included.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </section>
+
 
             <hr>
 
@@ -317,14 +331,16 @@
 
         <footer>
             <p>© 2025 Damian Ignaczak</p>
-            <p><a href="mailto:your@email.com">Contact</a> |
-                <a href="https://github.com/yourusername">GitHub</a> |
-                <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
+            <p><a href="mailto:damian.ignaczak.dev@gmail.com">Contact</a> |
+                <a href="https://github.com/vaqMAD">GitHub</a> |
+                <a href="https://www.linkedin.com/in/damian-ignaczak/">LinkedIn</a>
             </p>
         </footer>
 
     </div>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
     <script src="script.js"></script>
 </body>
 

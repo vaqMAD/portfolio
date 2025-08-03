@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .ascii-small {
-    display: none;
+	display: none;
 }
 /*
  * A simple CSS Reset to ensure a consistent baseline across browsers.
@@ -51,7 +51,6 @@ body {
 	color: var(--bg-color);
 }
 
-
 /* ==========================================================================
    2. BACKGROUND ELEMENTS & ANIMATIONS
    ========================================================================== */
@@ -73,7 +72,7 @@ body {
 .stain-left-small {
 	top: 8vh;
 	left: 20px;
-	background-color: #D7CCC8; /* "Milk foam" color */
+	background-color: #d7ccc8; /* "Milk foam" color */
 	transform: rotate(-30deg);
 	/* The border-radius trick with 8 values creates an organic, non-circular shape. */
 	border-radius: 73% 27% 44% 56% / 60% 49% 51% 40%;
@@ -99,13 +98,13 @@ body {
 .stain-right-large {
 	top: 10%;
 	right: -5%;
-	background-color: #4a3f35; 
+	background-color: #4a3f35;
 	transform: rotate(-15deg);
 	border-radius: 65% 35% 44% 56% / 58% 53% 47% 42%;
 }
 
 .stain-right-small {
-	top: 18%; 
+	top: 18%;
 	right: 5%;
 	transform: rotate(10deg);
 	background-color: #2d2825;
@@ -129,7 +128,6 @@ body {
 		opacity: 0;
 	}
 }
-
 
 /* ==========================================================================
    3. LAYOUT & TYPOGRAPHY
@@ -220,7 +218,6 @@ hr {
 	opacity: 0.2;
 	margin: 3rem 0;
 }
-
 
 /* ==========================================================================
    4. PAGE SECTIONS & COMPONENTS
@@ -400,8 +397,7 @@ nav a {
 	filter: invert(91%) sepia(3%) saturate(133%) hue-rotate(314deg) brightness(92%) contrast(93%);
 }
 
-
-/* 2. Default size for most icons */
+/* Default size for most icons */
 .icon,
 .tech-icon {
 	height: 1.1rem;
@@ -421,124 +417,158 @@ nav a {
 	font-weight: bold;
 }
 
-
 /* --- Career Timeline Component --- */
 
-/* --- Nowy Timeline --- */
-#career-path {
-    padding: 4rem 0;
+.timeline-container {
+	position: relative;
+	margin-top: 3rem;
 }
 
-.timeline {
-    position: relative; /* Potrzebne, żeby umieścić SVG i poświatę wewnątrz */
-    width: 100%;
-    max-width: 800px; /* Ogranicz szerokość dla czytelności */
-    margin: 0 auto;
+/* Timeline's central axis */
+.timeline-container::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+	width: 2px;
+	height: 100%;
+	background-color: var(--gray-color);
+	opacity: 0.3;
 }
 
 .timeline-list {
-    list-style: none;
-    padding: 0;
-    /* Tworzymy siatkę z dwiema kolumnami, przedzielonymi 40px przerwy na "tory" */
-    display: grid;
-    grid-template-columns: 1fr 40px 1fr; /* Kolumna lewa | przerwa | kolumna prawa */
-    gap: 2rem 0; /* Odstęp tylko między wierszami */
+	list-style: none;
+	padding: 0;
 }
 
-.timeline-list li {
-    position: relative; /* Potrzebne do pozycjonowania kropki */
-    padding: 1rem;
+.timeline-item {
+	padding: 0 40px;
+	position: relative;
+	margin-bottom: 50px;
+	width: 50%;
+	/* Initial settings for GSAP animation */
+	opacity: 0;
+	transform: translateY(50px);
+}
+/* Left-side items */
+.timeline-item:nth-child(odd) {
+	float: left;
+	clear: right;
+	text-align: right;
 }
 
-/* --- Magia z CSS Grid --- */
-/* Nieparzyste elementy (1, 3, 5...) umieszczamy w pierwszej kolumnie */
-.timeline-list li:nth-child(odd) {
-    grid-column: 1; /* Umieść w pierwszej kolumnie siatki */
-    text-align: right; /* Wyrównaj tekst do prawej */
+/* Right-side items */
+.timeline-item:nth-child(even) {
+	float: right;
+	clear: left;
+	text-align: left;
 }
 
-/* Parzyste elementy (2, 4, 6...) umieszczamy w trzeciej kolumnie */
-.timeline-list li:nth-child(even) {
-    grid-column: 3; /* Umieść w trzeciej kolumnie siatki */
-    text-align: left; /* Wyrównaj tekst do lewej */
+/* Dots on the timeline */
+.timeline-item::after {
+	content: '';
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: var(--bg-color);
+	border: 3px solid var(--accent-color);
+	top: 5px;
+	z-index: 1;
 }
 
-/* Kropka na osi czasu */
-.timeline-list li::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    background-color: var(--bg-color);
-    border: 3px solid var(--accent-color);
-    border-radius: 50%;
-    z-index: 10; /* Kropka musi być nad torami */
+.timeline-item:nth-child(odd)::after {
+	right: -10px; /* Position the dot outside the container */
 }
 
-/* Ustawiamy kropkę na krawędzi w zależności od strony */
-.timeline-list li:nth-child(odd)::after {
-    right: -28px; /* Przesuwamy na środek przerwy */
+.timeline-item:nth-child(even)::after {
+	left: -10px; /* Same for the other side */
 }
 
-.timeline-list li:nth-child(even)::after {
-    left: -28px; /* Przesuwamy na środek przerwy */
+.timeline-content h3 {
+	color: var(--text-color);
+	font-weight: 600;
 }
 
-.timeline-content {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(224, 224, 224, 0.1);
-    border-radius: 8px;
-    padding: 1.5rem;
+.timeline-content p {
+	color: var(--gray-color);
+	font-size: 0.9rem;
 }
 
-.timeline-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1; /* Tory są pod kropkami, ale nad tłem */
+/* Clear floats */
+.timeline-list::after {
+	content: '';
+	display: table;
+	clear: both;
 }
 
-.timeline-glow {
-    position: absolute;
-    /* Style wyglądu skopiuj ze starej klasy .timeline-glow */
-    width: 24px;
-    height: 24px;
-    background-color: rgba(212, 163, 115, 0.7);
-    border-radius: 50%;
-    box-shadow: 0 0 15px 5px rgba(212, 163, 115, 0.5);
-    /* Pozycja początkowa, ukryta */
-    opacity: 0;
-    /* Animujemy transform i opacity */
-    transition: transform 0.3s, opacity 0.3s;
-    z-index: 11; /* Poświata jest na samym wierzchu */
+.timeline-item:nth-child(odd)::after {
+	--translate-dir: 50%;
 }
 
-/* --- Responsywność --- */
-@media (max-width: 768px) {
-    /* Na mobilce zmieniamy siatkę na jedną kolumnę */
-    .timeline-list {
-        grid-template-columns: 40px 1fr; /* Przerwa na tory | Kolumna prawa */
-        gap: 1.5rem 0;
-    }
-
-    /* Wszystkie elementy lądują w drugiej kolumnie */
-    .timeline-list li:nth-child(odd),
-    .timeline-list li:nth-child(even) {
-        grid-column: 2;
-        text-align: left;
-    }
-    
-    /* Kropka dla wszystkich jest teraz po lewej stronie */
-    .timeline-list li:nth-child(odd)::after,
-    .timeline-list li:nth-child(even)::after {
-        left: -28px;
-        right: auto;
-    }
+.timeline-item:nth-child(even)::after {
+	--translate-dir: -50%;
 }
 
-/* --- Footer Component --- */
+/* Apply animation only to the last item on the list */
+.timeline-item:last-child::after {
+	--dot-scale: 1;
+	--dot-shadow-opacity: 0;
+	transform: scale(var(--dot-scale));
+	box-shadow: 0 0 12px rgba(212, 163, 115, var(--dot-shadow-opacity));
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ==========================================================================
+   5. COLLAPSIBLE CONTENT ("Read More")
+ ========================================================================== */
+
+.toggle-button {
+	background: none;
+	border: none;
+	padding: 0;
+	color: var(--text-color);
+	font-family: inherit;
+	font-size: 1rem;
+	line-height: inherit;
+	cursor: pointer;
+	display: inline-block;
+	margin-bottom: 1.5rem;
+}
+
+.toggle-button .arrow {
+	display: inline-block;
+	transition: transform 0.3s ease-in-out;
+}
+
+.collapsible-content {
+	margin-bottom: 1.5rem;
+	max-height: 50px;
+	overflow: hidden;
+	position: relative;
+	-webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+	mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+	transition: max-height 0.7s ease-in-out, -webkit-mask-image 0.5s ease-in-out, mask-image 0.5s ease-in-out;
+}
+
+.collapsible-content.is-open {
+	max-height: 1000px; /* A large enough value to fit content */
+	-webkit-mask-image: none;
+	mask-image: none;
+}
+.collapsible-content.is-open::after {
+	opacity: 0;
+}
+
+.toggle-button.is-open .arrow {
+	transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   6. FOOTER
+ ========================================================================== */
+
 footer {
 	text-align: left;
 	padding: 0.2rem 0 2rem;
@@ -561,19 +591,60 @@ footer a:hover {
 	color: var(--text-color);
 }
 
-
 /* ==========================================================================
-   5. RESPONSIVE ADJUSTMENTS
+   7. RESPONSIVE ADJUSTMENTS
    ========================================================================== */
 
 @media (max-width: 1200px) {
-    .stain-left-small {
-        background-color: #2d2825; /* "Espresso" color */
-    }
+	.stain-left-small {
+		background-color: #2d2825; /* "Espresso" color */
+	}
 }
 
-
 @media (max-width: 768px) {
+	.wrapper {
+		padding: 1.5rem;
+	}
+
+	h1 {
+		font-size: 1.8rem;
+	}
+
+	/* --- Header & Lists on Mobile --- */
+	header,
+	.tldr-section {
+		text-align: left;
+	}
+
+	.tagline-list,
+	.contact-links {
+		justify-content: left;
+		gap: 0.5rem 0.8rem;
+	}
+
+	.tagline-list {
+		font-size: 0.8rem;
+	}
+
+	/* --- Navigation on Mobile --- */
+	nav ul {
+		flex-direction: column;
+		align-items: left;
+		gap: 1rem;
+	}
+
+	/* --- ASCII Art Swap --- */
+	.ascii-large {
+		display: none;
+	}
+
+	.ascii-small {
+		display: block;
+		font-size: 0.7rem;
+		text-align: left;
+		font-family: 'Fira Code', monospace;
+		color: var(--accent-color);
+	}
 
 	/* --- Projects Section on Mobile --- */
 	.projects-grid {
@@ -582,108 +653,41 @@ footer a:hover {
 
 	/* --- Career Timeline on Mobile --- */
 	.timeline-container::before {
-		/* Changes the main axis from horizontal to vertical. */
-		width: 2px;
-		height: 100%;
 		left: 20px;
-		top: 0;
-		transform: none;
+		transform: translateX(0);
 	}
 
-	.timeline-row {
-		flex-direction: column; /* Stacks all items in a single column. */
+	.timeline-item,
+	.timeline-item:nth-child(odd),
+	.timeline-item:nth-child(even) {
+		width: 100%;
+		float: none;
+		text-align: left;
+		padding-left: 50px;
+		padding-right: 15px;
+		/* Reset animation starting point for consistency */
+		transform: translateY(30px);
 	}
 
-	.timeline-row:last-child {
-		margin-top: 0;
-	}
-
-	.timeline-item {
-		padding-left: 50px; /* Creates space for the vertical timeline axis. */
-		min-height: auto;
-		padding-top: 0;
-		padding-bottom: 2rem;
-	}
-
-	.timeline-item::before {
+	.timeline-item::after,
+	.timeline-item:nth-child(odd)::after,
+	.timeline-item:nth-child(even)::after {
 		left: 20px;
-		top: 0; /* Aligns all dots to the top of their item. */
 		transform: translateX(-50%);
 	}
 
-	.timeline-row:first-child .timeline-content,
-	.timeline-row:last-child .timeline-content {
-		position: static; /* Resets absolute positioning. */
-		transform: none;
+	/* --- General section alignment on mobile --- */
+	#about-me,
+	#projects,
+	#achievements,
+	#tech-stack,
+	#career-path,
+	footer {
 		text-align: left;
-		width: 100%;
 	}
 
-	/* Hides the vertical connector lines as they are no longer needed. */
-
-/* ==========================================================================
-6. ASCII ART & FINAL TWEAKS
-========================================================================== */
-
-
-
-@media (max-width: 768px) {
-    .ascii-large {
-        display: none;
-    }
-
-    .ascii-small {
-        display: block;
-        font-size: 0.7rem;
-        text-align: left;
-		font-family: 'Fira Code', monospace;
-		color: var(--accent-color);
-    }
-
-	h1 {
-        font-size: 1.8rem;
-    }
-
-    .wrapper {
-        padding: 1.5rem;
-    }
-
-    header,
-    .tldr-section {
-        text-align: left; 
-    }
-
-    /* --- Listy pod nagłówkiem --- */
-    .tagline-list,
-    .contact-links {
-        justify-content: left; /* Wycentruj elementy list */
-        gap: 0.5rem 0.8rem;      /* Dostosuj odstepy */
-    }
-    
-    .tagline-list {
-        font-size: 0.8rem;
-    }
-    
-    /* --- Nawigacja --- */
-    nav ul {
-        flex-direction: column; /* Zmieniamy oś flexboxa na pionową */
-        align-items: left;    /* Centrujemy linki nawigacji */
-        gap: 1rem;              /* Zwiększamy odstęp między nimi */
-    }
-
-    /* --- Poprawki w sekcjach --- */
-    #about-me,
-    #projects,
-    #achievements,
-    #tech-stack,
-    #career-path,
-    footer {
-        text-align: left; /* Upewnijmy się, że treść główna jest do lewej */
-    }
-
-    /* Ukrywamy pionowe linie w timeline, bo już nie pasują */
-    .timeline-item::after {
-        display: none;
-    }
+	/* Hide timeline dots as they don't align well in the mobile layout */
+	.timeline-item::after {
+		display: none;
+	}
 }
-
